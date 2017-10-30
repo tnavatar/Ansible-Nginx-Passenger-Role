@@ -163,8 +163,15 @@ server {
   passenger_python {{ http_root }}/{{ domain }}/env/bin/python;
     {% endif %}
   {% endif %}
+
+  # Added THN
+  {% for envvar in app_env_vars %}
+  passenger_env_var {{ envvar.name }} "{{ envvar.value }}";
+  {% endfor %} 
+
 {% endif %}
 
   # Include the basic h5bp config set
   include h5bp/basic.conf;
+
 }
